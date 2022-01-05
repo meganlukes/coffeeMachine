@@ -77,14 +77,18 @@ def cappuccino(list):
         print("Enjoy your cappuccino")
     return list
 
+
 def payment(price):
     enough = True
-    print(f"That will be {price}")
-    quarters = int(input("How many quarters? "))
-    dimes = int(input("How many dimes? "))
-    nickles = int(input("How many nickles? "))
-    pennies = int(input("How many pennies? "))
-    paid = (quarters / 4) + (dimes / 10) + (nickles / 20) + (pennies / 100)
+    print(f"That will be ${price}")
+
+    quarts = int(input("How many quarters? "))
+    dims = int(input("How many dimes? "))
+    nicks = int(input("How many nickles? "))
+    pens = int(input("How many pennies? "))
+    paid = (quarts * 25) + (dims * 10) + (nicks * 5) + pens
+    paid = paid / 100
+    print(paid)
     if paid < price:
         print("Insufficient funds")
         enough = False
@@ -94,27 +98,27 @@ def payment(price):
     else:
         left = paid - price
         left = left * 100
-        quarters = 0
-        dimes = 0
+        print(left)
         if left % 25 > 0:
-            quarters = (left - (left % 25)) / 25
+            quarters = int((left - (left % 25)) / 25)
             left = left - (quarters * 25)
             print(f"Take {quarters} quarters")
             if left % 5 > 0:
-                pennies = left % 5
+                pennies = int(left % 5)
                 left = left - pennies
                 print(f"Take {pennies} pennies")
             if left % 10 > 0:
                 left = left - 5
                 print("Take 1 nickle")
             if left > 0:
-                dimes = left / 10
+                dimes = int(left / 10)
                 print(f"Take {dimes} dimes")
         else:
-            quarters = (left - (left % 25)) / 25
+            quarters = int((left - (left % 25)) / 25)
             left = left - (quarters * 25)
             print(f"Take {quarters} quarters")
         return enough
+
 
 running = True
 
@@ -131,7 +135,7 @@ while running:
     elif task == "latte":
         cont = payment(2.5)
         if cont:
-            lattee("resources")
+            latte(resources)
     elif task == "report":
         print_report()
     elif task == "off":
