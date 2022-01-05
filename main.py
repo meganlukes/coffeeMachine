@@ -81,14 +81,12 @@ def cappuccino(list):
 def payment(price):
     enough = True
     print(f"That will be ${price}")
-
     quarts = int(input("How many quarters? "))
     dims = int(input("How many dimes? "))
     nicks = int(input("How many nickles? "))
     pens = int(input("How many pennies? "))
     paid = (quarts * 25) + (dims * 10) + (nicks * 5) + pens
     paid = paid / 100
-    print(paid)
     if paid < price:
         print("Insufficient funds")
         enough = False
@@ -98,8 +96,8 @@ def payment(price):
     else:
         left = paid - price
         left = left * 100
-        print(left)
-        if left % 25 > 0:
+        quart_left = left % 25
+        if quart_left > 0:
             quarters = int((left - (left % 25)) / 25)
             left = left - (quarters * 25)
             print(f"Take {quarters} quarters")
@@ -108,14 +106,14 @@ def payment(price):
                 left = left - pennies
                 print(f"Take {pennies} pennies")
             if left % 10 > 0:
+                nickles = int(left % 5)
                 left = left - 5
-                print("Take 1 nickle")
+                print(f"Take {nickles} nickles")
             if left > 0:
                 dimes = int(left / 10)
                 print(f"Take {dimes} dimes")
         else:
-            quarters = int((left - (left % 25)) / 25)
-            left = left - (quarters * 25)
+            quarters = int(left / 25)
             print(f"Take {quarters} quarters")
         return enough
 
