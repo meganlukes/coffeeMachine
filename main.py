@@ -93,7 +93,28 @@ def payment(price):
         return enough
     else:
         left = paid - price
-
+        left = left * 100
+        quarters = 0
+        dimes = 0
+        if left % 25 > 0:
+            quarters = (left - (left % 25)) / 25
+            left = left - (quarters * 25)
+            print(f"Take {quarters} quarters")
+            if left % 5 > 0:
+                pennies = left % 5
+                left = left - pennies
+                print(f"Take {pennies} pennies")
+            if left % 10 > 0:
+                left = left - 5
+                print("Take 1 nickle")
+            if left > 0:
+                dimes = left / 10
+                print(f"Take {dimes} dimes")
+        else:
+            quarters = (left - (left % 25)) / 25
+            left = left - (quarters * 25)
+            print(f"Take {quarters} quarters")
+        return enough
 
 running = True
 
